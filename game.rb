@@ -1,8 +1,12 @@
 class Game
-  def initialize
+  def initialize(win_checker)
     @board = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
     @pieces = [:o, :x]
     @turn = 0
+    @win_checker = win_checker
+    @noughts = 0
+    @crosses = 0
+
   end 
 
   def display_board
@@ -37,49 +41,63 @@ class Game
       @turn += 1
       puts "Turn Count #{@turn}"
 
-      has_won?(@pieces[check_win % 2])
+      if @win_checker.has_won?(@pieces[check_win % 2], @board) != false
+        add_to_score(@pieces[check_win % 2])
+        reset_board
 
+      end
+    
       if @turn == 9
         puts "Full Board, play again"
         reset_board
       end
+
+      def add_to_score(symbol)
+        if symbol == :o
+          @noughts += 1
+        elsif symbol == :x
+          @crosses += 1
+        end
+          puts "Score Noughts: #{@noughts} -- Crosses: #{@crosses}"
+      end
+
   end
 
-  def has_won?(symbol)
-    if horizontal_line?(symbol) ||  vertical_line?(symbol) || diaganol_line(symbol)
-      puts "#{symbol} is the winner"
-      reset_board
-      display_board
-    else return false
-    end  
-  end  
+  # def has_won?(symbol)
+  #   if horizontal_line?(symbol) ||  vertical_line?(symbol) || diaganol_line(symbol)
+  #     puts "#{symbol} is the winner"
+  #     reset_board
+  #     display_board
+  #   else return false
+  #   end  
+  # end  
 
 
 
-  def horizontal_line?(symbol)
-    @board.any? do |row| row_has_winning_line(row, symbol)
-    end
-  end  
+  # def horizontal_line?(symbol)
+  #   @board.any? do |row| row_has_winning_line(row, symbol)
+  #   end
+  # end  
 
-  def vertical_line?(symbol)
-    trans_board = @board.transpose
-    trans_board.any? do |row| row_has_winning_line(row, symbol)
-    end
-  end  
+  # def vertical_line?(symbol)
+  #   trans_board = @board.transpose
+  #   trans_board.any? do |row| row_has_winning_line(row, symbol)
+  #   end
+  # end  
 
-  def diaganol_line(symbol)
-    middle_piece = @board[1][1]
-    return false if middle_piece != symbol
-    top_left_and_bottom_right = @board[0][0] == symbol && @board[2][2] == symbol
-    top_right_and_bottom_right = @board[0][2] == symbol && @board[2][0] == symbol
-    top_right_and_bottom_right || top_left_and_bottom_right
-  end
+  # def diaganol_line(symbol)
+  #   middle_piece = @board[1][1]
+  #   return false if middle_piece != symbol
+  #   top_left_and_bottom_right = @board[0][0] == symbol && @board[2][2] == symbol
+  #   top_right_and_bottom_right = @board[0][2] == symbol && @board[2][0] == symbol
+  #   top_right_and_bottom_right || top_left_and_bottom_right
+  # end
 
-  def row_has_winning_line(row, symbol)
-    row.all? do |square|
-      square == symbol
-    end
-  end  
+  # def row_has_winning_line(row, symbol)
+  #   row.all? do |square|
+  #     square == symbol
+  #   end
+  # end  
 
 
 
