@@ -8,12 +8,12 @@ win_checker_1 = WinChecker.new()
 
 our_game = Game.new(win_checker_1)
 # place piece
-# our_game.place_piece(0, 0)
-# our_game.place_piece(1, 1)
-# our_game.place_piece(1, 0)
-# our_game.place_piece(0, 1)
-# our_game.place_piece(0, 2)
-# our_game.place_piece(0, 1)
+our_game.place_piece(0, 0)
+our_game.place_piece(1, 1)
+our_game.place_piece(1, 0)
+our_game.place_piece(0, 1)
+our_game.place_piece(0, 2)
+our_game.place_piece(0, 1)
 
 # display the board
 

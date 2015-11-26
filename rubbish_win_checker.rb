@@ -1,31 +1,20 @@
 class RubbishWinChecker
-  [1,2,3]
-  [4,5,6]
-  [7,8,9]
-  [1,4,7]
+ 
 
-  Winning_boards[[symbol, symbol, symbol, nil, nil, nil, nil, nil, nil]
-                  [nil, nil, nil, symbol, symbol, symbol, nil, nil, nil]
-                  [nil, nil, nil, nil, nil, nil, symbol, symbol, symbol]
-                  [symbol, nil, nil, symbol, nil, nil, symbol, nil, nil]
-                  [nil, symbol, nil, nil, , nil, symbol, symbol, symbol]
-                  [nil, symbol, nil, nil, symbol, nil, nil, symbol, nil]
-                  [nil, nil, symbol, nil, nil, symbol, nil, nil, symbol]
+   WINS = [
+     [0, 1, 2], [3, 4, 5], [6, 7, 8],  # <-- Horizontal wins
+     [0, 3, 6], [1, 4, 7], [2, 5, 8],  # <-- Vertical wins
+     [0, 4, 8], [2, 4, 6]           # <-- Diagonal wins
+   ]
 
-                  
-
-
-  def board_to_indexes(board,symbol)
-    #[:x,:o,nil,:o,:x,:x,nil,nil:o]
-    flattened_board = board.flatten
-    indexes = []
-    flattened_board.each_with_index do |square, index|
-      indexes.push(index) if square == symbol 
-    end
-    #[0,1,3,8]
-    indexes
-  end
-                  
+   def has_won?(symbol, board)
+      board_array = board.flatten
+       if WINS.any? { |line| line.all? { |square| board_array[square] == symbol } }
+       puts "#{symbol} is the winner"
+       return true
+       else return false
+      end  
+    end  
 
 
 
@@ -33,8 +22,4 @@ class RubbishWinChecker
 
 
 
-
-                ]
-
-  
 end  
