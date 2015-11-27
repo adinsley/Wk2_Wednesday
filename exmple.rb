@@ -1,4 +1,4 @@
-class Game
+class Game1
   def initialize(win_checker)
     @board = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
     @pieces = [:o, :x]
@@ -19,6 +19,33 @@ class Game
     @board = [[nil, nil, nil], [nil, nil, nil], [nil, nil, nil]]
     @turn = 0
     @pieces = @pieces.reverse
+  end
+
+  def turn
+      # until get_row == "exit" || get_column == "exit"
+      loop do place_piece(get_row, get_column)
+      end
+  end
+
+  def get_row
+     puts "Please enter row, 0-2"
+     row = gets.chomp
+       if row == "exit"
+        exit
+      else
+       return row.to_i
+      end
+  end
+
+  def get_column
+    puts "please enter column, 0-2"
+    column = gets.chomp
+      if column == "exit"
+         exit
+       else
+        return column.to_i
+       end
+  
   end
 
 
